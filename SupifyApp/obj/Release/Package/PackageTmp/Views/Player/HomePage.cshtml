@@ -1,0 +1,35 @@
+﻿@model SupifyApp.ViewModels.HomePageViewModel
+
+@{
+    ViewBag.Title = Model.user.Username;
+}
+
+<h2>Hello, @Model.user.Firstname @Model.user.Lastname</h2> 
+
+<input type="button" value="Edit Profile" class="btn btn-lg btn_lgreen" onclick="location.href='@Url.Action("MyProfile", "Player")'" />
+<input type="button" value="My Friends" class="btn btn-lg btn_lgreen" onclick="location.href='@Url.Action("Friends", "Player")'" />
+<input type="button" value="My Music" class="btn btn-lg btn_lgreen" onclick="location.href='@Url.Action("Music", "Player")'" />
+<br />
+<br />
+<br />
+<div class="row">
+    <input type="text" id="inputsearch" class="input-sm"/>
+    <input class="btn" type="button" value="Search music" id="input" />   
+</div>
+<br />
+
+<div id="search">
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Recent Tracks</h3><input type="button" value="refresh" class="btn" onclick="location.reload()" />
+        <div></div>
+    </div>
+    <div class="col-md-6">
+        <h3 >Playlists</h3><input type="button" value="new playlist" class="btn" onclick="location.href='@Url.Action("AddPlaylist", "Player")'"/>
+        <div></div>
+    </div>
+</div>
+
+

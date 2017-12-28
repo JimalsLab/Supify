@@ -1,0 +1,31 @@
+﻿@model SupifyApp.ViewModels.MusicViewModel
+
+@{
+    ViewBag.Title = "Music";
+}
+
+<h2>Music</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Track Name")
+        </th>
+        <th>
+            @Html.DisplayName("Duration")
+        </th>
+        <th>
+            
+        </th>
+        <th></th>
+    </tr>
+@{
+    foreach (SupifyApp.Models.Track t in Model.tracklist)
+    {
+        <tr id="@t.trackid" class="mclass">
+            
+        </tr>
+    }
+}
+
+</table>

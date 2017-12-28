@@ -1,0 +1,41 @@
+﻿@model SupifyApp.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "Home";
+    if (Model.registered == null)
+    {
+        Model.registered = "";
+    }
+}
+
+<img class="bandeau" src="~/Content/img/bandeau_home.jpg" />
+<div>
+    <div class="row">
+        <br />
+        <br />
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="home_space"><br /></div>
+            <br />
+            <h4 class="text-danger">@Model.registered</h4>
+            <h2>Supify is the</h2>
+            <h2>best audio streaming</h2>
+            <h2>platform out there</h2>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <br />
+            <br />
+            <br />
+            <input class="big_button title_txt" type="button" value="Try it out now" onclick="location.href='@Url.Action("Register", "Home")'" />
+            <br />
+            <br />
+            <br />
+            <div><b>To use it, just login and have fun !</b></div>
+            <div class="home_semi_space"><br /></div>
+            <img src="~/Content/img/supify_medium.jpg" />
+        </div>
+    </div>
+</div>
+

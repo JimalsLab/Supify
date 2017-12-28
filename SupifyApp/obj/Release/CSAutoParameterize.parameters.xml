@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="supinfyserv.database.windows.net-Web.config Connection String" description="supinfyserv.database.windows.net Connection String used in web.config by the application to access the database." defaultValue="Data Source=tcp:supinfyserv.database.windows.net,1433;Initial Catalog=Supinfydb;User ID=Supinfyadmin@supinfyserv;Password=Mathieumjb1" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\SUPINFO\\PROJETS\\SUPIFY\\SupifyApp\\obj\\Release\\Package\\PackageTmp\\Views\\web\.config$" match="/configuration/connectionStrings/add[@name='supinfyserv.database.windows.net']/@connectionString" />
+  </parameter>
+  <parameter name="SupinfydbEntities1-Web.config Connection String" description="SupinfydbEntities1 Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.SupifyModels.csdl|res://*/Models.SupifyModels.ssdl|res://*/Models.SupifyModels.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=supinfyserv.database.windows.net;initial catalog=Supinfydb;persist security info=True;user id=Supinfyadmin;password=Mathieumjb1;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\SUPINFO\\PROJETS\\SUPIFY\\SupifyApp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SupinfydbEntities1']/@connectionString" />
+  </parameter>
+  <parameter name="SupinfydbEntities-Web.config Connection String" description="SupinfydbEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.SupifyModels.csdl|res://*/Models.SupifyModels.ssdl|res://*/Models.SupifyModels.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=supinfyserv.database.windows.net;initial catalog=Supinfydb;persist security info=True;user id=Supinfyadmin;password=Mathieumjb1;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\SUPINFO\\PROJETS\\SUPIFY\\SupifyApp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SupinfydbEntities']/@connectionString" />
+  </parameter>
+</parameters>

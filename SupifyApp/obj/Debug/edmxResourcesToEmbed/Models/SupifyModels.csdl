@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SupinfydbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="FriendId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_friend" FromRole="Friends" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="MusicConnections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="trackid" Type="Int32" Nullable="false" />
+    <Property Name="playlistid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Playlist" Relationship="Self.FK_Playlist_fromMusicConnections" FromRole="MusicConnections" ToRole="Playlist" />
+    <NavigationProperty Name="Track" Relationship="Self.FK_Track_fromMusicConnections" FromRole="MusicConnections" ToRole="Track" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_fromMusicConnections" FromRole="MusicConnections" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Playlist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="isPrivate" Type="Int32" />
+    <NavigationProperty Name="MusicConnections" Relationship="Self.FK_Playlist_fromMusicConnections" FromRole="Playlist" ToRole="MusicConnections" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_fromPlaylist" FromRole="Playlist" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Track">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="trackid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="times_lstened" Type="Int32" />
+    <Property Name="added_date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="MusicConnections" Relationship="Self.FK_Track_fromMusicConnections" FromRole="Track" ToRole="MusicConnections" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_fromtrack" FromRole="Track" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Friends" Relationship="Self.FK_friend" FromRole="Users" ToRole="Friends" />
+    <NavigationProperty Name="MusicConnections" Relationship="Self.FK_User_fromMusicConnections" FromRole="Users" ToRole="MusicConnections" />
+    <NavigationProperty Name="Playlist" Relationship="Self.FK_User_fromPlaylist" FromRole="Users" ToRole="Playlist" />
+    <NavigationProperty Name="Track" Relationship="Self.FK_User_fromtrack" FromRole="Users" ToRole="Track" />
+  </EntityType>
+  <Association Name="FK_friend">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Playlist_fromMusicConnections">
+    <End Role="Playlist" Type="Self.Playlist" Multiplicity="1" />
+    <End Role="MusicConnections" Type="Self.MusicConnections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Playlist">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MusicConnections">
+        <PropertyRef Name="playlistid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Track_fromMusicConnections">
+    <End Role="Track" Type="Self.Track" Multiplicity="1" />
+    <End Role="MusicConnections" Type="Self.MusicConnections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MusicConnections">
+        <PropertyRef Name="trackid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_fromMusicConnections">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="MusicConnections" Type="Self.MusicConnections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MusicConnections">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_fromPlaylist">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Playlist">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_fromtrack">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Track" Type="Self.Track" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Track">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SupinfydbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Friends" EntityType="Self.Friends" />
+    <EntitySet Name="MusicConnections" EntityType="Self.MusicConnections" />
+    <EntitySet Name="Playlist" EntityType="Self.Playlist" />
+    <EntitySet Name="Track" EntityType="Self.Track" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_friend" Association="Self.FK_friend">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Playlist_fromMusicConnections" Association="Self.FK_Playlist_fromMusicConnections">
+      <End Role="Playlist" EntitySet="Playlist" />
+      <End Role="MusicConnections" EntitySet="MusicConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Track_fromMusicConnections" Association="Self.FK_Track_fromMusicConnections">
+      <End Role="Track" EntitySet="Track" />
+      <End Role="MusicConnections" EntitySet="MusicConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_fromMusicConnections" Association="Self.FK_User_fromMusicConnections">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="MusicConnections" EntitySet="MusicConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_fromPlaylist" Association="Self.FK_User_fromPlaylist">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Playlist" EntitySet="Playlist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_fromtrack" Association="Self.FK_User_fromtrack">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Track" EntitySet="Track" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
